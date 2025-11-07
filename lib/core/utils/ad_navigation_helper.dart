@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:binmatrix/services/iap/subscription_manager.dart';
+import '../../services/iap/subscription_manager.dart';
+import '../../services/ads/ad_service.dart';
 
 /// Helper utility for showing ads during navigation
 class AdNavigationHelper {
@@ -18,7 +19,13 @@ class AdNavigationHelper {
     }
     
     // Show interstitial ad before navigation if enabled
-    
+    if (showInterstitial) {
+      final adShown = await AdService.instance.showInterstitialAd();
+      if (adShown) {
+        // Wait a bit for ad to be dismissed
+        await Future.delayed(const Duration(milliseconds: 500));
+      }
+    }
     
     // Navigate after ad
     return Navigator.push<T>(
@@ -35,13 +42,22 @@ class AdNavigationHelper {
   ) async {
     // Don't show ads for Pro users
     if (SubscriptionManager.instance.isProUser) {
+      onRewardEarned();
       return Navigator.push<T>(
         context,
         MaterialPageRoute(builder: (_) => routeBuilder()),
       );
     }
     
-    // Show rewarded interstitial
+    // Show rewarded interstitial (for now, just show regular interstitial)
+    final adShown = await AdService.instance.showInterstitialAd();
+    if (adShown) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      onRewardEarned();
+    } else {
+      // Still allow navigation and reward even if ad failed
+      onRewardEarned();
+    }
     
     // Navigate after ad
     return Navigator.push<T>(

@@ -1,7 +1,7 @@
 name: binmatrix
 description: BinMatrix - BIN Checker Application
 publish_to: 'none'
-version: 10.2.25+2
+version: 11.5.25+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -66,6 +66,7 @@ dependencies:
   dartz: ^0.10.1
   logger: ^2.0.2+1
   crypto: ^3.0.3
+  flutter_dotenv: ^5.1.0
   
   # Ads & Monetization
   google_mobile_ads: ^5.1.0
@@ -92,12 +93,15 @@ flutter:
     - assets/icons/
     - assets/lottie/
     - assets/data/
+    # .env files are loaded at runtime (dev only, gitignored)
+    # For production, use build-time constants or secure storage
+    # DO NOT commit .env files with sensitive keys!
 
 flutter_launcher_icons:
   android: true
   ios: false
-  image_path: "assets/images/binmatrix.png"
+  image_path: "assets/images/binmatrixlogo.png"
   min_sdk_android: 24
   adaptive_icon_background: "#000000"
-  adaptive_icon_foreground: "assets/images/binmatrix.png"
+  adaptive_icon_foreground: "assets/images/binmatrixlogo.png"
 

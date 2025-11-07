@@ -21,22 +21,23 @@ class AppLogo extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: Image.asset(
-        'assets/images/binmatrix.png',
-        height: height ?? 40.h,
+        'assets/images/binmatrixlogo.png',
+        height: height ?? 65.h,
         width: width,
         fit: BoxFit.contain,
         errorBuilder: (context, error, stackTrace) {
           // Fallback if image not found
           return Container(
-            height: height ?? 40.h,
+            height: height ?? 80.h,
             width: width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.transparent,
             ),
-            child: Icon(
-              Icons.credit_card_rounded,
-              size: (height ?? 40.h) * 0.8,
-              color: Theme.of(context).iconTheme.color,
+            child: Image.asset(
+              'assets/images/binmatrixlogo.png',
+              height: height ?? 65.h,
+              width: width,
+              fit: BoxFit.contain,
             ),
           );
         },

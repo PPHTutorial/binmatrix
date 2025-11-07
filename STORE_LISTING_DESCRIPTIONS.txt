@@ -1,0 +1,362 @@
+========================================
+GOOGLE PLAY STORE / APP STORE LISTINGS
+========================================
+
+----------------------------------------
+SHORT DESCRIPTION (80 characters max)
+----------------------------------------
+
+BinMatrix: Fast BIN Checker & Card Validator. Lookup Bank, Type, Country & More!
+
+Alternative Short (80 chars):
+Instant BIN Lookup Tool - Check Card BIN, Bank Details, Type, Brand & Country
+
+Alternative Short (80 chars):
+BIN Checker: Validate Credit/Debit Cards - Bank, Type, Brand & Country Lookup
+
+----------------------------------------
+FULL DESCRIPTION (4000 characters max)
+----------------------------------------
+
+BinMatrix - Your Ultimate BIN Checker and Card Validator
+
+Looking for a reliable BIN checker app? BinMatrix is the fastest and most accurate BIN lookup tool available. Instantly identify credit and debit card information with just 6-8 digits of the card number.
+
+WHAT IS A BIN?
+A Bank Identification Number (BIN) is the first 6-8 digits of a credit or debit card. This number identifies the issuing bank, card type, brand, country, and card level - all essential information for secure transactions and card verification.
+
+KEY FEATURES:
+
+✓ INSTANT BIN LOOKUP
+Enter any 6-8 digit BIN number and get comprehensive card information instantly. No internet required for lookups after initial database load.
+
+✓ COMPREHENSIVE CARD INFORMATION
+Get detailed information including:
+• Issuing Bank Name
+• Card Type (Credit/Debit/Prepaid)
+• Card Brand (Visa, Mastercard, American Express, etc.)
+• Card Level (Classic, Gold, Platinum, etc.)
+• Country of Origin
+• Bank Contact Information (Phone & Website)
+
+✓ HISTORY & FAVORITES
+Never lose track of your lookups again:
+• Save lookup history for quick reference
+• Mark frequently used BINs as favorites
+• Easy search through your past lookups
+• Automatic history management
+
+✓ SECURE & PRIVATE
+Your data stays on your device:
+• All lookups stored locally
+• No data transmitted to servers
+• Encrypted database protection
+• Complete privacy guaranteed
+
+✓ USER-FRIENDLY INTERFACE
+Beautiful, minimalist design that's easy to use:
+• Clean and professional UI
+• Dark and light theme support
+• Smooth animations and transitions
+• Intuitive navigation
+
+✓ FAST & RELIABLE
+Optimized for performance:
+• Lightning-fast lookup speeds
+• Offline functionality
+• Low battery consumption
+• Works without constant internet connection
+
+✓ SHARE & EXPORT
+Easily share BIN information:
+• Share lookup results with one tap
+• Copy details for your records
+• Export functionality for reporting
+
+WHO NEEDS BIN CHECKER?
+
+• E-commerce businesses verifying card validity
+• Payment processors checking transaction authenticity
+• Fraud prevention teams identifying suspicious cards
+• Financial institutions validating card information
+• Developers integrating card verification
+• Anyone needing quick card information lookup
+
+WHY CHOOSE BINMATRIX?
+
+Unlike other BIN checker apps, BinMatrix offers:
+✅ Largest and most up-to-date BIN database
+✅ Completely offline operation after initial setup
+✅ Fast and accurate results
+✅ No account registration required
+✅ Clean, ad-free interface (with Pro version)
+✅ Regular database updates
+✅ Excellent customer support
+
+FREE VS PRO:
+
+FREE VERSION:
+• Unlimited BIN lookups
+• Full database access
+• History and favorites
+• All core features
+• Ads displayed
+
+PRO VERSION:
+• All free features included
+• Completely ad-free experience
+• Priority customer support
+• Early access to new features
+• Lifetime or subscription options available
+
+PRIVACY & SECURITY:
+
+Your privacy is our top priority. BinMatrix:
+• Stores all data locally on your device
+• Never transmits your lookups to external servers
+• Uses encrypted database for protection
+• Complies with GDPR and data protection regulations
+• No tracking or analytics on your personal information
+
+SUPPORT:
+
+Have questions or need help? Contact us at:
+Email: deverloper.codeink.playconsole@gmail.com
+
+We're committed to providing the best BIN checking experience possible. Your feedback helps us improve!
+
+Download BinMatrix today and experience the most reliable BIN checker app available. Fast, accurate, and completely secure.
+
+Keywords: BIN checker, card validator, bank identification number, credit card checker, debit card validator, BIN lookup, card information, bank lookup, card type checker, card brand identifier, payment card validation, card number lookup, bank details, card issuer lookup, financial card validator
+
+----------------------------------------
+APPLE APP STORE SUBTITLE (30 chars max)
+----------------------------------------
+
+BIN Checker & Card Validator
+
+Alternative:
+Instant BIN Lookup Tool
+
+----------------------------------------
+APPLE APP STORE PROMOTIONAL TEXT (170 chars max)
+----------------------------------------
+
+Fast, accurate BIN checker with comprehensive card details. Lookup bank, type, brand, country & more instantly. Secure, offline-capable, and completely free!
+
+Alternative:
+Get instant BIN lookup results with bank details, card type, brand, and country information. Secure, fast, and reliable card validation at your fingertips.
+
+----------------------------------------
+KEYWORDS FOR APP STORE OPTIMIZATION
+----------------------------------------
+
+Primary Keywords:
+BIN checker, card validator, BIN lookup, bank identification, credit card checker, debit card validator, card information, bank lookup
+
+Secondary Keywords:
+payment validation, card type checker, card brand, bank details, card issuer, financial tools, payment processing, fraud prevention, card verification, transaction validation
+
+Long-tail Keywords:
+credit card BIN checker, debit card BIN lookup, bank identification number validator, card number information lookup, payment card validator, card type and bank checker
+
+----------------------------------------
+SEARCH KEYWORDS (Google Play - 50 chars)
+----------------------------------------
+
+BIN checker,card validator,card lookup,bank,credit card
+
+Alternative:
+BIN lookup,card checker,bank identification,validator
+
+----------------------------------------
+APP STORE TAGS / KEYWORDS
+----------------------------------------
+
+Primary Tags (Choose up to 10):
+bin checker
+card validator
+bin lookup
+bank identification
+credit card checker
+debit card validator
+card information
+bank lookup
+payment validation
+card verification
+
+Secondary Tags:
+fraud prevention
+payment processing
+transaction validation
+card type checker
+card brand identifier
+financial tools
+banking app
+payment card
+card issuer lookup
+bank details
+card number lookup
+secure payment
+card security
+bank verification
+payment gateway
+card authentication
+financial services
+banking information
+card analytics
+payment tools
+
+Long-tail Tags:
+credit card bin checker
+debit card bin lookup
+bank identification number
+payment card validator
+card type and bank checker
+instant bin lookup tool
+card information lookup
+bank card validator
+credit card information
+card issuer identification
+
+Category Tags:
+Finance
+Business
+Productivity
+Utilities
+Banking
+Payment Processing
+Financial Tools
+
+Feature Tags:
+offline
+secure
+fast
+accurate
+free
+ad-free
+privacy
+encrypted
+local storage
+no registration
+instant results
+comprehensive database
+
+Technical Tags:
+BIN database
+card validation API
+payment card processing
+bank identification system
+card number verification
+transaction security
+payment authentication
+card issuer network
+bank routing information
+
+----------------------------------------
+GOOGLE PLAY TAGS (Separate by commas)
+----------------------------------------
+
+Primary Tags:
+bin checker, card validator, bin lookup, bank identification, credit card checker, debit card validator, card information, bank lookup, payment validation, card verification
+
+Expanded Tags (100 characters):
+bin checker, card validator, bin lookup, bank identification, credit card checker, debit card validator, card information, bank lookup, payment validation, card verification, fraud prevention, payment processing, transaction validation, card type checker, financial tools
+
+----------------------------------------
+HASHTAGS FOR SOCIAL MEDIA
+----------------------------------------
+
+Primary Hashtags:
+#BinChecker
+#CardValidator
+#BINLookup
+#BankIdentification
+#PaymentValidation
+#CardVerification
+
+Extended Hashtags:
+#CreditCardChecker
+#DebitCardValidator
+#BankLookup
+#CardInformation
+#PaymentProcessing
+#FraudPrevention
+#FinancialTools
+#BankingApp
+#PaymentCard
+#CardSecurity
+#BinMatrix
+#SecurePayment
+#TransactionValidation
+
+Combined Hashtag String:
+#BinChecker #CardValidator #BINLookup #BankIdentification #PaymentValidation #CreditCard #DebitCard #Banking #FinTech #PaymentProcessing #FraudPrevention #FinancialTools
+
+----------------------------------------
+CATEGORY CLASSIFICATIONS
+----------------------------------------
+
+Google Play Store Categories:
+Primary: Finance
+Secondary: Business
+Additional: Productivity, Utilities
+
+Apple App Store Categories:
+Primary: Finance
+Secondary: Business
+Tertiary: Productivity
+
+----------------------------------------
+CONTENT RATING KEYWORDS
+----------------------------------------
+
+Age Rating Justification:
+- No user-generated content
+- No social features
+- No objectionable content
+- Educational and informational purpose
+- Suitable for all ages
+- Financial information tool
+- Business and productivity app
+
+Content Descriptors:
+- None required (educational/business tool)
+- Financial information reference
+- No violence, no sexual content, no profanity
+
+----------------------------------------
+METADATA TAGS FOR ASO
+----------------------------------------
+
+App Title Variations:
+BinMatrix - BIN Checker
+BinMatrix: Card Validator
+BinMatrix BIN Lookup Tool
+
+App Description Variations:
+"Fast BIN checker for credit and debit cards"
+"Instant bank identification number lookup"
+"Reliable card validator with comprehensive database"
+"Professional BIN lookup tool for businesses"
+
+Feature Highlight Tags:
+✓ Offline BIN Lookup
+✓ Secure & Private
+✓ Fast & Accurate
+✓ Comprehensive Database
+✓ History & Favorites
+✓ No Registration Required
+✓ Free Forever
+
+Value Proposition Tags:
+Instant Results
+100% Offline
+Secure & Private
+No Account Needed
+Unlimited Lookups
+Regular Updates
+Best Database Coverage
+
+
+google.com, pub-9043208558525567, DIRECT, f08c47fec0942fa0

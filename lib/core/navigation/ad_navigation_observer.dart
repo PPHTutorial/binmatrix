@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:binmatrix/services/iap/subscription_manager.dart';
 
-/// Navigation observer to track screen changes and show ads accordingly
+/// Navigation observer - simplified (no ad tracking)
+/// Pro version doesn't need ad tracking
 class AdNavigationObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
-    
-    // Don't track ads for Pro users
-    if (SubscriptionManager.instance.isProUser) {
-      return;
-    }
-    
-    // Track navigation for ad display logic
-    // (Currently placeholder - can be extended for BIN detail screens)
-    
+    // Pro version - no ad tracking needed
   }
 }
-

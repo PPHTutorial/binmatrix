@@ -22,10 +22,17 @@ class SubscriptionManager {
   Future<void> initialize() async {
     try {
       _prefs = await SharedPreferences.getInstance();
-      // Pro version - always set as pro user
-      await _setProStatus(true);
-      _activeProductId = AppConstants.iapLifetime; // Set as lifetime pro
-      AppLogger.i('Subscription manager initialized - Pro: $_isProUser (Pro Version - Always Enabled)');
+      // Load saved pro status from preferences (defaults to false)
+      final savedProStatus = _prefs?.getBool(AppConstants.keyProStatus) ?? false;
+      _isProUser = savedProStatus;
+      if (savedProStatus) {
+        _activeProductId = _prefs?.getString('active_product_id');
+        final expiryMs = _prefs?.getInt('subscription_expiry');
+        if (expiryMs != null) {
+          _subscriptionExpiry = DateTime.fromMillisecondsSinceEpoch(expiryMs);
+        }
+      }
+      AppLogger.i('Subscription manager initialized - Pro: $_isProUser');
     } catch (e, stackTrace) {
       AppLogger.e('Error initializing subscription manager', e, stackTrace);
     }
@@ -80,8 +87,8 @@ class SubscriptionManager {
     await _prefs?.setBool(AppConstants.keyProStatus, isPro);
   }
   
-  /// Check if user is Pro (always true for pro version)
-  bool get isProUser => true; // Always pro in pro version
+  /// Check if user is Pro
+  bool get isProUser => _isProUser;
   
   /// Get active product ID
   String? get activeProductId => _activeProductId;
@@ -108,8 +115,11 @@ class SubscriptionManager {
   
   /// Get subscription type display name
   String get subscriptionType {
-    // Pro version - always lifetime
-    return 'Pro Lifetime';
+    if (!_isProUser) return 'Free';
+    if (_activeProductId == AppConstants.iapMonthly) return 'Pro Monthly';
+    if (_activeProductId == AppConstants.iapYearly) return 'Pro Yearly';
+    if (_activeProductId == AppConstants.iapLifetime) return 'Pro Lifetime';
+    return 'Free';
   }
 }
 

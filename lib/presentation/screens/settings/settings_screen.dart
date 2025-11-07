@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:in_app_review/in_app_review.dart';
 import '../../../app/themes/app_colors.dart';
-import '../../../app/themes/app_text_styles.dart';
-import '../../../app/themes/app_dimensions.dart';
 import '../../../services/storage/cache_service.dart';
 import '../../providers/theme_provider.dart';
 
@@ -49,172 +48,295 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
+      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
       appBar: AppBar(
         title: Text(
           'Settings',
-          style: AppTextStyles.headline4,
+          style: TextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+            color: isDark ? Colors.white : AppColors.lightTextPrimary,
+          ),
+        ),
+        backgroundColor: isDark ? AppColors.darkSurface : Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: isDark ? Colors.white : AppColors.lightTextPrimary,
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(AppDimensions.space16),
+        padding: EdgeInsets.all(20.w),
         children: [
-          // Appearance Section
-          _buildSectionHeader('Appearance'),
-          Consumer(
-            builder: (context, ref, child) {
-              final themeMode = ref.watch(themeModeProvider);
-              final themeModeText = themeMode == ThemeMode.light
-                  ? 'Light'
-                  : themeMode == ThemeMode.dark
-                      ? 'Dark'
-                      : 'System';
-              return _buildListTile(
-                icon: Icons.palette_outlined,
-                title: 'Theme',
-                subtitle: themeModeText,
-                trailing: Switch(
-                  value: themeMode == ThemeMode.dark,
-                  onChanged: (value) {
-                    ref.read(themeModeProvider.notifier).setThemeMode(
-                          value ? ThemeMode.dark : ThemeMode.light,
-                        );
-                  },
-                ),
-              );
-            },
-          ),
-          _buildListTile(
-            icon: Icons.grid_view,
-            title: 'Grid Size',
-            subtitle: '2 columns',
-            onTap: () {
-              // TODO: Grid size selector
-            },
-          ),
-          
-          SizedBox(height: AppDimensions.space24),
-          
-          // Cache Section
-          _buildSectionHeader('Storage'),
-          _buildListTile(
-            icon: Icons.storage,
-            title: 'Cache Size',
-            subtitle: _cacheSize,
-          ),
-          _buildListTile(
-            icon: Icons.delete_outline,
-            title: 'Clear Cache',
-            onTap: () => _clearCache(),
-          ),
-          
-          SizedBox(height: AppDimensions.space24),
-          
-          // Pro Version Info Section
-          _buildSectionHeader('Version'),
-          _buildListTile(
-            icon: Icons.verified,
-            title: 'Pro Version',
-            subtitle: 'All features unlocked',
-            trailing: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppDimensions.space8,
-                vertical: AppDimensions.space4,
-              ),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppColors.proGradientStart, AppColors.proGradientEnd],
-                ),
-                borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-              ),
-              child: Text(
-                'PRO',
-                style: AppTextStyles.caption.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          _buildSection('Appearance', [
+            _buildThemeTile(isDark),
+          ]),
+          SizedBox(height: 24.h),
+          _buildSection('Storage', [
+            _buildInfoTile(
+              icon: Icons.storage_outlined,
+              title: 'Cache Size',
+              subtitle: _cacheSize,
+              isDark: isDark,
+            ),
+            _buildActionTile(
+              icon: Icons.delete_outline,
+              title: 'Clear Cache',
+              onTap: _clearCache,
+              isDark: isDark,
+            ),
+          ]),
+          SizedBox(height: 24.h),
+          _buildSection('About', [
+            _buildInfoTile(
+              icon: Icons.info_outline,
+              title: 'App Version',
+              subtitle: _appVersion,
+              isDark: isDark,
+            ),
+            _buildActionTile(
+              icon: Icons.privacy_tip_outlined,
+              title: 'Privacy Policy',
+              onTap: () => _showPrivacyPolicy(context),
+              isDark: isDark,
+            ),
+            _buildActionTile(
+              icon: Icons.description_outlined,
+              title: 'Terms of Service',
+              onTap: () => _showTermsOfService(context),
+              isDark: isDark,
+            ),
+            _buildActionTile(
+              icon: Icons.star_outline,
+              title: 'Rate App',
+              onTap: _rateApp,
+              isDark: isDark,
+            ),
+            _buildActionTile(
+              icon: Icons.email_outlined,
+              title: 'Contact Support',
+              subtitle: 'deverloper.codeink.playconsole@gmail.com',
+              onTap: _contactSupport,
+              isDark: isDark,
+            ),
+          ]),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSection(String title, List<Widget> children) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 4.w, bottom: 12.h),
+          child: Text(
+            title.toUpperCase(),
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: isDark ? AppColors.textSecondary : AppColors.secondaryColor.withOpacity(0.8),
+              letterSpacing: 0.5,
             ),
           ),
-          
-          SizedBox(height: AppDimensions.space24),
-          
-          // About Section
-          _buildSectionHeader('About'),
-          _buildListTile(
-            icon: Icons.info_outline,
-            title: 'App Version',
-            subtitle: _appVersion,
+        ),
+        ...children,
+      ],
+    );
+  }
+
+  Widget _buildThemeTile(bool isDark) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final themeMode = ref.watch(themeModeProvider);
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+          decoration: BoxDecoration(
+            color: isDark ? AppColors.darkCard : Colors.white,
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(
+              color: isDark ? AppColors.darkSurface : Colors.grey.shade200,
+            ),
           ),
-          _buildListTile(
-            icon: Icons.privacy_tip_outlined,
-            title: 'Privacy Policy',
-            onTap: () => _showPrivacyPolicy(context),
+          child: Row(
+            children: [
+              Icon(
+                Icons.palette_outlined,
+                size: 20.sp,
+                color: isDark ? AppColors.textSecondary : AppColors.secondaryColor,
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Theme',
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 2.h),
+                    Text(
+                      themeMode == ThemeMode.light
+                          ? 'Light'
+                          : themeMode == ThemeMode.dark
+                              ? 'Dark'
+                              : 'System',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: isDark ? AppColors.textSecondary : AppColors.lightTextSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Switch(
+                value: themeMode == ThemeMode.dark,
+                onChanged: (value) {
+                  ref.read(themeModeProvider.notifier).setThemeMode(
+                        value ? ThemeMode.dark : ThemeMode.light,
+                      );
+                },
+                activeColor: AppColors.primaryColor,
+              ),
+            ],
           ),
-          _buildListTile(
-            icon: Icons.description_outlined,
-            title: 'Terms of Service',
-            onTap: () => _showTermsOfService(context),
+        );
+      },
+    );
+  }
+
+  Widget _buildInfoTile({
+    required IconData icon,
+    required String title,
+    String? subtitle,
+    required bool isDark,
+  }) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.darkCard : Colors.white,
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(
+          color: isDark ? AppColors.darkSurface : Colors.grey.shade200,
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: 20.sp,
+            color: isDark ? AppColors.textSecondary : AppColors.lightTextSecondary,
           ),
-          _buildListTile(
-            icon: Icons.star_outline,
-            title: 'Rate App',
-            onTap: () => _rateApp(),
-          ),
-          _buildListTile(
-            icon: Icons.email_outlined,
-            title: 'Contact Support',
-            subtitle: 'deverloper.codeink.playconsole@gmail.com',
-            onTap: () => _contactSupport(),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                      ),
+                    ),
+                    if (subtitle != null) ...[
+                      SizedBox(height: 2.h),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          color: isDark ? AppColors.textSecondary : AppColors.secondaryColor.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: AppDimensions.space8,
-        bottom: AppDimensions.space8,
-      ),
-      child: Text(
-        title,
-        style: AppTextStyles.labelLarge.copyWith(
-          color: AppColors.accentColor,
-          fontWeight: FontWeight.bold,
+  Widget _buildActionTile({
+    required IconData icon,
+    required String title,
+    String? subtitle,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12.r),
+        child: Container(
+          margin: EdgeInsets.only(bottom: 8.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+          decoration: BoxDecoration(
+            color: isDark ? AppColors.darkCard : Colors.white,
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(
+              color: isDark ? AppColors.darkSurface : Colors.grey.shade200,
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 20.sp,
+                color: isDark ? AppColors.textSecondary : AppColors.secondaryColor,
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                      ),
+                    ),
+                    if (subtitle != null) ...[
+                      SizedBox(height: 2.h),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          color: isDark ? AppColors.textSecondary : AppColors.lightTextSecondary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 14.sp,
+                color: isDark ? AppColors.textSecondary : AppColors.secondaryColor,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildListTile({
-    required IconData icon,
-    required String title,
-    String? subtitle,
-    Widget? trailing,
-    VoidCallback? onTap,
-  }) {
-    return Card(
-      margin: EdgeInsets.only(bottom: AppDimensions.space8),
-      child: ListTile(
-        leading: Icon(icon, color: AppColors.accentColor),
-        title: Text(title, style: AppTextStyles.bodyLarge),
-        subtitle: subtitle != null
-            ? Text(subtitle, style: AppTextStyles.bodySmall)
-            : null,
-        trailing: trailing ??
-            (onTap != null
-                ? const Icon(Icons.chevron_right, color: AppColors.textSecondary)
-                : null),
-        onTap: onTap,
-      ),
-    );
-  }
-
   Future<void> _clearCache() async {
-    showDialog(
+    if (!mounted) return;
+    final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Clear Cache?'),
@@ -223,25 +345,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              await CacheService.instance.clearCache();
-              await _loadCacheSize();
-              if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Cache cleared successfully')),
-                );
-              }
-            },
+            onPressed: () => Navigator.pop(context, true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryColor,
+              foregroundColor: Colors.white,
+            ),
             child: const Text('Clear'),
           ),
         ],
       ),
     );
+
+    if (confirmed == true) {
+      await CacheService.instance.clearCache();
+      await _loadCacheSize();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Cache cleared successfully')),
+        );
+      }
+    }
   }
 
   Future<void> _launchUrl(String url) async {
@@ -265,7 +392,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       if (await inAppReview.isAvailable()) {
         await inAppReview.requestReview();
       } else {
-        // Fallback to opening store
         await _launchUrl(
           Platform.isAndroid
               ? 'https://play.google.com/store/apps/details?id=com.codeink.stsl.binmatrix'
@@ -331,30 +457,50 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   static String get _privacyPolicyText => '''
 PRIVACY POLICY
 
-Last updated: ${DateTime.now().year}
+Last updated: December ${DateTime.now().year}
 
 1. INFORMATION WE COLLECT
-We collect information that you provide directly to us, such as when you create an account, make a purchase, or contact us for support.
+
+Information You Provide:
+- BIN lookup history (stored locally on your device)
+- Favorite BINs (stored locally on your device)
+- App preferences like theme settings
+
+Automatically Collected:
+- Device information (type, OS version, identifiers)
+- Usage data for analytics
+- Cache data for app performance
+
+Third-Party Services:
+- Google AdMob: Device identifiers and advertising data (for free users)
+- Google Play/App Store: Purchase information for subscriptions
 
 2. HOW WE USE YOUR INFORMATION
-- To provide and maintain our service
-- To notify you about changes to our service
-- To provide customer support
-- To gather analysis or valuable information to improve our service
-- To monitor the usage of our service
-- To detect, prevent and address technical issues
+- Provide BIN lookup services
+- Remember your preferences and history
+- Display relevant advertisements (free users)
+- Improve app functionality
+- Provide customer support
 
 3. DATA STORAGE
-We store your data locally on your device. Some data may be synced with cloud services for backup purposes.
+All your data (history, favorites, preferences) is stored LOCALLY on your device. We do NOT transmit your BIN lookups or personal data to our servers.
 
-4. THIRD-PARTY SERVICES
-Our app uses third-party services that may collect information used to identify you.
+Third-party services (AdMob, app stores) may collect data according to their privacy policies.
 
-5. SECURITY
-We value your trust in providing us your Personal Information, thus we strive to use commercially acceptable means of protecting it.
+4. YOUR RIGHTS
+- View and delete your lookup history
+- Clear favorites and cache
+- Opt-out of ads (upgrade to Pro or use device settings)
+- Uninstall the app to delete all local data
+
+5. CHILDREN'S PRIVACY
+BinMatrix is not intended for children under 13. We do not knowingly collect information from children.
 
 6. CONTACT US
-If you have any questions about this Privacy Policy, please contact us at deverloper.codeink.playconsole@gmail.com
+Email: deverloper.codeink.playconsole@gmail.com
+
+For the complete Privacy Policy, visit:
+https://binmatrix.app/privacy
 ''';
 
   static String get _termsOfServiceText => '''
@@ -369,27 +515,18 @@ By accessing and using BinMatrix, you accept and agree to be bound by the terms 
 Permission is granted to temporarily download one copy of the materials on BinMatrix for personal, non-commercial transitory viewing only.
 
 3. DISCLAIMER
-The materials on BinMatrix are provided on an 'as is' basis. BinMatrix makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties.
+The materials on BinMatrix are provided on an 'as is' basis. BinMatrix makes no warranties, expressed or implied.
 
 4. LIMITATIONS
-In no event shall BinMatrix or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit) arising out of the use or inability to use the materials on BinMatrix.
+In no event shall BinMatrix or its suppliers be liable for any damages arising out of the use or inability to use the materials on BinMatrix.
 
-5. IN-APP PURCHASES
-This is the Pro version of the app - all features are included. No in-app purchases required.
-
-6. SUBSCRIPTION TERMS
-- Subscriptions auto-renew unless cancelled
-- You can cancel anytime through your app store account
-- No refunds for partial subscription periods
-
-7. CONTENT
+5. CONTENT
 All BIN data and information are provided for personal use only. Redistribution or commercial use is prohibited.
 
-8. MODIFICATIONS
+6. MODIFICATIONS
 BinMatrix may revise these terms at any time without notice. By using this app, you agree to be bound by the current version of these terms.
 
-9. CONTACT INFORMATION
+7. CONTACT INFORMATION
 For questions about these Terms, please contact us at deverloper.codeink.playconsole@gmail.com
 ''';
 }
-
