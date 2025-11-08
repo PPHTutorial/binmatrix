@@ -32,8 +32,13 @@ void main() async {
   // Initialize AdMob (only if not Pro user)
   if (!SubscriptionManager.instance.isProUser) {
     await AdService.instance.initialize();
-    // Load app open ad after initialization
-    await AppOpenAdService.instance.loadAd();
+    // Load app open ad after a delay to ensure AdMob is fully initialized
+    Future.delayed(const Duration(seconds: 2), () {
+      AppOpenAdService.instance.loadAd().catchError((error) {
+        // Silently handle app open ad loading errors - don't crash the app
+        // App Open ads are optional and failures shouldn't affect app functionality
+      });
+    });
   }
 
   // Set system UI overlay style

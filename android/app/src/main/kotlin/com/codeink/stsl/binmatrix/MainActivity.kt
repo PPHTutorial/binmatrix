@@ -5,9 +5,15 @@ import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.widget.TextView
+import android.widget.LinearLayout
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
+import com.google.android.gms.ads.nativead.MediaView
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin
 import java.io.File
 
 class MainActivity : FlutterActivity() {
@@ -15,6 +21,14 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        
+        // Register Native Ad Factory
+        GoogleMobileAdsPlugin.registerNativeAdFactory(
+            flutterEngine,
+            "listTile",
+            NativeAdFactoryExample(applicationContext)
+        )
+        
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "saveImageToDownloads" -> {
@@ -127,6 +141,74 @@ class MainActivity : FlutterActivity() {
                 // File scanned successfully
             }
         }
+    }
+}
+
+// Native Ad Factory for displaying native ads
+class NativeAdFactoryExample(private val context: android.content.Context) : GoogleMobileAdsPlugin.NativeAdFactory {
+    override fun createNativeAd(
+        nativeAd: NativeAd,
+        customOptions: Map<String?, Any?>?
+    ): NativeAdView {
+        // Create a simple native ad view
+        val nativeAdView = NativeAdView(context)
+        
+        // Create a simple layout programmatically
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        
+        // Add headline
+        val headlineView = TextView(context)
+        headlineView.textSize = 16f
+        headlineView.setPadding(16, 16, 16, 8)
+        layout.addView(headlineView)
+        
+        // Add body text
+        val bodyView = TextView(context)
+        bodyView.textSize = 14f
+        bodyView.setPadding(16, 0, 16, 8)
+        layout.addView(bodyView)
+        
+        // Add media view if available
+        val mediaView = MediaView(context)
+        mediaView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            200
+        )
+        layout.addView(mediaView)
+        
+        // Add call to action button
+        val ctaView = TextView(context)
+        ctaView.textSize = 14f
+        ctaView.setPadding(16, 8, 16, 16)
+        layout.addView(ctaView)
+        
+        nativeAdView.addView(layout)
+        
+        // Set views
+        nativeAdView.headlineView = headlineView
+        nativeAdView.bodyView = bodyView
+        nativeAdView.mediaView = mediaView
+        nativeAdView.callToActionView = ctaView
+        
+        // Populate the native ad view
+        if (nativeAd.headline != null) {
+            (nativeAdView.headlineView as TextView).text = nativeAd.headline
+        }
+        if (nativeAd.body != null) {
+            (nativeAdView.bodyView as TextView).text = nativeAd.body
+        }
+        if (nativeAd.callToAction != null) {
+            (nativeAdView.callToActionView as TextView).text = nativeAd.callToAction
+        }
+        
+        nativeAdView.setNativeAd(nativeAd)
+        
+        return nativeAdView
     }
 }
 

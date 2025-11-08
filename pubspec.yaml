@@ -47,10 +47,6 @@ dependencies:
   device_info_plus: ^9.1.0
   in_app_review: ^2.0.8
 
-  # Wallpaper Setting
-  flutter_wallpaper_manager: ^0.0.3
-  async_wallpaper: ^2.1.0
-
   # Responsive Design
   flutter_screenutil: ^5.9.0
 

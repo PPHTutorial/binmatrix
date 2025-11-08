@@ -177,6 +177,7 @@ class _BinCheckerScreenState extends ConsumerState<BinCheckerScreen>
           Expanded(
             child: TextField(
               controller: _binController,
+              autofocus: false,
               focusNode: _focusNode,
               keyboardType: TextInputType.number,
               inputFormatters: [
@@ -190,7 +191,7 @@ class _BinCheckerScreenState extends ConsumerState<BinCheckerScreen>
               ),
               decoration: InputDecoration(
                 hintText: 'Enter 6-8 digit BIN',
-                hintStyle: TextStyle(
+                hintStyle: TextStyle(              
                   color: isDark
                       ? AppColors.textSecondary
                       : AppColors.lightTextSecondary,

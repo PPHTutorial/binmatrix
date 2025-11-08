@@ -47,16 +47,19 @@ class AppOpenAdService {
             _registerCallbacks(ad);
           },
           onAdFailedToLoad: (error) {
-            AppLogger.e('Failed to load app open ad', error);
-            AppLogger.e(
-                'Ad error code: ${error.code}, domain: ${error.domain}, message: ${error.message}');
+            // Log error but don't treat it as critical
+            AppLogger.i(
+                'App open ad failed to load (non-critical): ${error.message}');
+            AppLogger.i('Error code: ${error.code}, domain: ${error.domain}');
             _isLoadingAd = false;
             _appOpenAd = null;
+            // Don't retry immediately - will retry on next app resume
           },
         ),
       );
-    } catch (e, stackTrace) {
-      AppLogger.e('Exception loading app open ad', e, stackTrace);
+    } catch (e) {
+      // Log exception but don't crash - App Open ads are optional
+      AppLogger.i('Exception loading app open ad (non-critical): $e');
       _isLoadingAd = false;
       _appOpenAd = null;
     }

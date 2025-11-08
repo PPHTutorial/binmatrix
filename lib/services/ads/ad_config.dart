@@ -24,9 +24,9 @@ class AdConfig {
   static const String _testRewardedInterstitialAdUnitIdAndroid =
       'ca-app-pub-3940256099942544/5354046379';
   static const String _testAppOpenAdUnitIdAndroid =
-      'ca-app-pub-3940256099942544/3419835294';
+      'ca-app-pub-3940256099942544/9257395921';
   static const String _testAppOpenAdUnitIdIOS =
-      'ca-app-pub-3940256099942544/5662855259';
+      'ca-app-pub-3940256099942544/5575464033';
   static const String _testNativeAdvancedAdUnitIdAndroid =
       'ca-app-pub-3940256099942544/2247696110';
   static const String _testNativeAdvancedAdUnitIdIOS =
